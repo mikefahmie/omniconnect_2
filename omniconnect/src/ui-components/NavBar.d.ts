@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { FlexProps, IconProps, ImageProps, SearchFieldProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
+import { FlexProps, IconProps, TextProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -22,13 +22,9 @@ export declare type NavBarOverridesProps = {
     Logo?: PrimitiveOverrideProps<FlexProps>;
     "Star 1"?: PrimitiveOverrideProps<IconProps>;
     "OmniConnect CRM"?: PrimitiveOverrideProps<TextProps>;
-    "Frame 32129767076"?: PrimitiveOverrideProps<FlexProps>;
+    "Frame 321"?: PrimitiveOverrideProps<FlexProps>;
     "Add Customer"?: PrimitiveOverrideProps<TextProps>;
-    "Frame 32129767081"?: PrimitiveOverrideProps<FlexProps>;
-    SearchField?: PrimitiveOverrideProps<SearchFieldProps>;
-    Icon?: PrimitiveOverrideProps<ViewProps>;
-    Vector?: PrimitiveOverrideProps<IconProps>;
-    image?: PrimitiveOverrideProps<ImageProps>;
+    "Add New Order"?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
 export declare type NavBarProps = React.PropsWithChildren<Partial<FlexProps> & {
     overrides?: NavBarOverridesProps | undefined | null;

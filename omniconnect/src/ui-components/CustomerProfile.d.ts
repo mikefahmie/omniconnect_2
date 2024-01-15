@@ -25,7 +25,7 @@ export declare type CustomerProfileOverridesProps = {
     "Design Engineer at Cloth Studios29766903"?: PrimitiveOverrideProps<TextProps>;
     "Design Engineer at Cloth Studios4266458"?: PrimitiveOverrideProps<TextProps>;
     "Design Engineer at Cloth Studios4266459"?: PrimitiveOverrideProps<TextProps>;
-    Button?: PrimitiveOverrideProps<ButtonProps>;
+    Button42213?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
 export declare type CustomerProfileProps = React.PropsWithChildren<Partial<FlexProps> & {
     customers?: any;

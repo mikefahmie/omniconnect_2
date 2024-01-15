@@ -156,8 +156,8 @@ export default function CustomerProfile(props) {
         size="large"
         isDisabled={false}
         variation="primary"
-        children="View Profile"
-        {...getOverrideProps(overrides, "Button")}
+        children="Edit Customer"
+        {...getOverrideProps(overrides, "Button42213")}
       ></Button>
     </Flex>
   );

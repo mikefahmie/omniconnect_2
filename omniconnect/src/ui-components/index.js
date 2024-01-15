@@ -13,6 +13,7 @@ export { default as ContactUs } from "./ContactUs";
 export { default as CustomerProfile } from "./CustomerProfile";
 export { default as CustomerProfileCollection } from "./CustomerProfileCollection";
 export { default as CustomersCreateForm } from "./CustomersCreateForm";
+export { default as CustomersUpdateForm } from "./CustomersUpdateForm";
 export { default as FAQItem } from "./FAQItem";
 export { default as Features2x2 } from "./Features2x2";
 export { default as Features2x3 } from "./Features2x3";

@@ -9,11 +9,13 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createCustomers } from "../graphql/mutations";
+import { getCustomers } from "../graphql/queries";
+import { updateCustomers } from "../graphql/mutations";
 const client = generateClient();
-export default function CustomersCreateForm(props) {
+export default function CustomersUpdateForm(props) {
   const {
-    clearOnSuccess = true,
+    id: idProp,
+    customers: customersModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -36,13 +38,33 @@ export default function CustomersCreateForm(props) {
   const [profilePic, setProfilePic] = React.useState(initialValues.profilePic);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.name);
-    setEmail(initialValues.email);
-    setPhone(initialValues.phone);
-    setNotes(initialValues.notes);
-    setProfilePic(initialValues.profilePic);
+    const cleanValues = customersRecord
+      ? { ...initialValues, ...customersRecord }
+      : initialValues;
+    setName(cleanValues.name);
+    setEmail(cleanValues.email);
+    setPhone(cleanValues.phone);
+    setNotes(cleanValues.notes);
+    setProfilePic(cleanValues.profilePic);
     setErrors({});
   };
+  const [customersRecord, setCustomersRecord] =
+    React.useState(customersModelProp);
+  React.useEffect(() => {
+    const queryData = async () => {
+      const record = idProp
+        ? (
+            await client.graphql({
+              query: getCustomers.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getCustomers
+        : customersModelProp;
+      setCustomersRecord(record);
+    };
+    queryData();
+  }, [idProp, customersModelProp]);
+  React.useEffect(resetStateValues, [customersRecord]);
   const validations = {
     name: [{ type: "Required" }],
     email: [{ type: "Email" }],
@@ -77,10 +99,10 @@ export default function CustomersCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
-          email,
-          phone,
-          notes,
-          profilePic,
+          email: email ?? null,
+          phone: phone ?? null,
+          notes: notes ?? null,
+          profilePic: profilePic ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -111,18 +133,16 @@ export default function CustomersCreateForm(props) {
             }
           });
           await client.graphql({
-            query: createCustomers.replaceAll("__typename", ""),
+            query: updateCustomers.replaceAll("__typename", ""),
             variables: {
               input: {
+                id: customersRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
-          }
-          if (clearOnSuccess) {
-            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -131,7 +151,7 @@ export default function CustomersCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "CustomersCreateForm")}
+      {...getOverrideProps(overrides, "CustomersUpdateForm")}
       {...rest}
     >
       <TextField
@@ -280,13 +300,14 @@ export default function CustomersCreateForm(props) {
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Clear"
+          children="Reset"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          isDisabled={!(idProp || customersModelProp)}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -296,7 +317,10 @@ export default function CustomersCreateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || customersModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

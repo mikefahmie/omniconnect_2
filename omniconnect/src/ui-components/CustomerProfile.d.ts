@@ -5,7 +5,6 @@
  **************************************************************************/
 
 import * as React from "react";
-import { Customers } from "../models";
 import { ButtonProps, FlexProps, ImageProps, TextProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
@@ -29,7 +28,7 @@ export declare type CustomerProfileOverridesProps = {
     Button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
 export declare type CustomerProfileProps = React.PropsWithChildren<Partial<FlexProps> & {
-    customers?: Customers;
+    customers?: any;
 } & {
     overrides?: CustomerProfileOverridesProps | undefined | null;
 }>;

@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-omniconnect2-staging-13545-authRole",
+      "UnauthRoleArn": "arn:aws:iam::339912504748:role/amplify-omniconnect2-staging-13545-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::339912504748:role/amplify-omniconnect2-staging-13545-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-omniconnect2-staging-13545-deployment",
+      "UnauthRoleName": "amplify-omniconnect2-staging-13545-unauthRole",
+      "StackName": "amplify-omniconnect2-staging-13545",
+      "StackId": "arn:aws:cloudformation:us-east-1:339912504748:stack/amplify-omniconnect2-staging-13545/679eff60-b346-11ee-948a-0ea903d23769",
+      "AmplifyAppId": "d3e7nw5ikworn5"
+    }
+  }
+}

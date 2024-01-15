@@ -251,6 +251,7 @@ export default function CustomersCreateForm(props) {
         label="Profile pic"
         isRequired={false}
         isReadOnly={false}
+        placeholder="image_url"
         value={profilePic}
         onChange={(e) => {
           let { value } = e.target;

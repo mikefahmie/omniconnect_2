@@ -1,9 +1,8 @@
-//import logo from './logo.svg';
 import './App.css';
 
 import {
-  CustomerProfileCollection, NavBar
- } from './ui-components';
+  CustomerProfileCollection, NavBar, CustomersCreateForm 
+} from './ui-components';
 
 function App() {
   return (
@@ -11,7 +10,7 @@ function App() {
       <header className="App-header">
         <NavBar width={"100%"} />
         <CustomerProfileCollection />
-        
+        <CustomersCreateForm style={{ backgroundColor: "white" }}/>
       </header>
     </div>
   );

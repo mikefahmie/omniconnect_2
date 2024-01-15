@@ -7,9 +7,13 @@ import {
   CustomersUpdateForm,
 } from './ui-components';
 
+
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [showUpdate, setShowUpdate] = useState(false); // Initialize with a boolean value
+  const [showCustCollection, setShowCustSelection] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState(null); // State for selected customer
+  const [showNewOrder, setShowNewOrder] = useState(false)
 
   const navbarOverrides = {
     'Add Customer': {
@@ -19,7 +23,17 @@ function App() {
       onClick: () => {
         setShowForm(!showForm);
       },
+
     },
+
+    'Show Customers': {
+      style: {
+        cursor: 'pointer',
+      },
+      onClick: () => {
+        setShowCustSelection(!showForm);
+      },
+    }
   };
 
   return (
@@ -31,26 +45,32 @@ function App() {
           <CustomersCreateForm style={{ backgroundColor: 'white' }} />
         )}
 
-        {showUpdate && (
+        {showUpdate && selectedCustomer && (
           <CustomersUpdateForm
-            style={{ textAlign: 'left' }} // Corrected CSS property
-            Customers={"Customers"} // Assuming "Customers" is a valid prop
+            style={{ textAlign: 'left' }}
+            customer={selectedCustomer} // Pass the selected customer data
           />
         )}
 
-        <CustomerProfileCollection
+        {showCustCollection && (
+          <CustomerProfileCollection
           style={{ margin: '20px' }}
           overrideItems={({ item, index }) => ({
             overrides: {
-              Button42213: { 
+              Button42213: {
                 onClick: () => {
-                  //setUser(item); // Uncomment and set the user if necessary
+                  setSelectedCustomer(item); // Set the selected customer
                   setShowUpdate(true); // Show the update form
                 },
               },
             },
           })}
         />
+        )
+        
+        }
+
+       
       </header>
     </div>
   );

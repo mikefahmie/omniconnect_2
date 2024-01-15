@@ -30,6 +30,8 @@ export { default as MarketingFooter } from "./MarketingFooter";
 export { default as MarketingPricing } from "./MarketingPricing";
 export { default as MyIcon } from "./MyIcon";
 export { default as NavBar } from "./NavBar";
+export { default as OrdersCreateForm } from "./OrdersCreateForm";
+export { default as OrdersUpdateForm } from "./OrdersUpdateForm";
 export { default as ProductCard } from "./ProductCard";
 export { default as ProductDetail } from "./ProductDetail";
 export { default as SideBar } from "./SideBar";

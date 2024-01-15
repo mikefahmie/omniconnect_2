@@ -1,6 +1,57 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateOrders = /* GraphQL */ `
+  subscription OnCreateOrders($filter: ModelSubscriptionOrdersFilterInput) {
+    onCreateOrders(filter: $filter) {
+      id
+      customersID
+      orderPlaced
+      item
+      addressZIP
+      addressStreet
+      addressState
+      orderStatus
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateOrders = /* GraphQL */ `
+  subscription OnUpdateOrders($filter: ModelSubscriptionOrdersFilterInput) {
+    onUpdateOrders(filter: $filter) {
+      id
+      customersID
+      orderPlaced
+      item
+      addressZIP
+      addressStreet
+      addressState
+      orderStatus
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteOrders = /* GraphQL */ `
+  subscription OnDeleteOrders($filter: ModelSubscriptionOrdersFilterInput) {
+    onDeleteOrders(filter: $filter) {
+      id
+      customersID
+      orderPlaced
+      item
+      addressZIP
+      addressStreet
+      addressState
+      orderStatus
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateCustomers = /* GraphQL */ `
   subscription OnCreateCustomers(
     $filter: ModelSubscriptionCustomersFilterInput
@@ -12,6 +63,10 @@ export const onCreateCustomers = /* GraphQL */ `
       phone
       notes
       profilePic
+      Orders {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -29,6 +84,10 @@ export const onUpdateCustomers = /* GraphQL */ `
       phone
       notes
       profilePic
+      Orders {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -46,6 +105,10 @@ export const onDeleteCustomers = /* GraphQL */ `
       phone
       notes
       profilePic
+      Orders {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename

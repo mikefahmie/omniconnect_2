@@ -25,6 +25,8 @@ export declare type NavBarOverridesProps = {
     "Frame 321"?: PrimitiveOverrideProps<FlexProps>;
     "Add Customer"?: PrimitiveOverrideProps<TextProps>;
     "Add New Order"?: PrimitiveOverrideProps<TextProps>;
+    "Show Customers"?: PrimitiveOverrideProps<TextProps>;
+    "Show Orders"?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
 export declare type NavBarProps = React.PropsWithChildren<Partial<FlexProps> & {
     overrides?: NavBarOverridesProps | undefined | null;

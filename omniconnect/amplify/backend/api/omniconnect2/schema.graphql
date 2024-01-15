@@ -1,3 +1,14 @@
+type Orders @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  customersID: ID @index(name: "byCustomers")
+  orderPlaced: AWSTime
+  item: String
+  addressZIP: String
+  addressStreet: String
+  addressState: String
+  orderStatus: String!
+}
+
 type Customers @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
@@ -5,4 +16,6 @@ type Customers @model @auth(rules: [{allow: public}]) {
   phone: AWSPhone
   notes: String
   profilePic: String
+  Orders: [Orders] @hasMany(indexName: "byCustomers", fields: ["id"])
 }
+ 

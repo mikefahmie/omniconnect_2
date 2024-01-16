@@ -18,7 +18,7 @@ export default function OrderDetails(props) {
       query: updateOrders.replaceAll("__typename", ""),
       variables: {
         input: {
-          orderStatus: "True",
+          orderStatus: "true",
           id: orders?.id,
         },
       },
@@ -72,7 +72,7 @@ export default function OrderDetails(props) {
           position="relative"
           padding="0px 0px 0px 0px"
           whiteSpace="pre-wrap"
-          children={`${"Order ID: "}${orders?.id}`}
+          children="Order ID: "
           {...getOverrideProps(overrides, "Order ID")}
         ></Text>
         <Text

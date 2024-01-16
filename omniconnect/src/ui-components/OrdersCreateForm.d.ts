@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -27,7 +27,9 @@ export declare type OrdersCreateFormInputValues = {
     addressZIP?: string;
     addressStreet?: string;
     addressState?: string;
-    orderStatus?: string;
+    addrressCity?: string;
+    orderStatus?: boolean;
+    orderNumber?: number;
 };
 export declare type OrdersCreateFormValidationValues = {
     orderPlaced?: ValidationFunction<string>;
@@ -35,7 +37,9 @@ export declare type OrdersCreateFormValidationValues = {
     addressZIP?: ValidationFunction<string>;
     addressStreet?: ValidationFunction<string>;
     addressState?: ValidationFunction<string>;
-    orderStatus?: ValidationFunction<string>;
+    addrressCity?: ValidationFunction<string>;
+    orderStatus?: ValidationFunction<boolean>;
+    orderNumber?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type OrdersCreateFormOverridesProps = {
@@ -45,7 +49,9 @@ export declare type OrdersCreateFormOverridesProps = {
     addressZIP?: PrimitiveOverrideProps<TextFieldProps>;
     addressStreet?: PrimitiveOverrideProps<TextFieldProps>;
     addressState?: PrimitiveOverrideProps<TextFieldProps>;
-    orderStatus?: PrimitiveOverrideProps<TextFieldProps>;
+    addrressCity?: PrimitiveOverrideProps<TextFieldProps>;
+    orderStatus?: PrimitiveOverrideProps<SwitchFieldProps>;
+    orderNumber?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type OrdersCreateFormProps = React.PropsWithChildren<{
     overrides?: OrdersCreateFormOverridesProps | undefined | null;

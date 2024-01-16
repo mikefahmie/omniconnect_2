@@ -6,15 +6,15 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { listCustomers } from "../graphql/queries";
-import CustomerProfile from "./CustomerProfile";
+import { listOrders } from "../graphql/queries";
+import OrderDetails from "./OrderDetails";
 import { getOverrideProps } from "./utils";
 import { Collection, Pagination, Placeholder } from "@aws-amplify/ui-react";
 import { generateClient } from "aws-amplify/api";
 const nextToken = {};
 const apiCache = {};
 const client = generateClient();
-export default function CustomerProfileCollection(props) {
+export default function OrderDetailsCollection(props) {
   const { items: itemsProp, overrideItems, overrides, ...rest } = props;
   const [pageIndex, setPageIndex] = React.useState(1);
   const [hasMorePages, setHasMorePages] = React.useState(true);
@@ -55,10 +55,10 @@ export default function CustomerProfileCollection(props) {
       }
       const result = (
         await client.graphql({
-          query: listCustomers.replaceAll("__typename", ""),
+          query: listOrders.replaceAll("__typename", ""),
           variables,
         })
-      ).data.listCustomers;
+      ).data.listOrders;
       newCache.push(...result.items);
       newNext = result.nextToken;
     }
@@ -81,7 +81,6 @@ export default function CustomerProfileCollection(props) {
     <div>
       <Collection
         type="grid"
-        isSearchable="true"
         searchPlaceholder="Search..."
         templateColumns="1fr 1fr 1fr 1fr"
         autoFlow="row"
@@ -90,7 +89,7 @@ export default function CustomerProfileCollection(props) {
         itemsPerPage={pageSize}
         isPaginated={!isApiPagination && isPaginated}
         items={itemsProp || (loading ? new Array(pageSize).fill({}) : items)}
-        {...getOverrideProps(overrides, "CustomerProfileCollection")}
+        {...getOverrideProps(overrides, "OrderDetailsCollection")}
         {...rest}
       >
         {(item, index) => {
@@ -98,14 +97,14 @@ export default function CustomerProfileCollection(props) {
             return <Placeholder key={index} size="large" />;
           }
           return (
-            <CustomerProfile
-              customers={item}
+            <OrderDetails
               height="auto"
               width="auto"
-              margin="5px 5px 5px 5px"
+              margin="10px 10px 10px 10px"
+              orders={item}
               key={item.id}
               {...(overrideItems && overrideItems({ item, index }))}
-            ></CustomerProfile>
+            ></OrderDetails>
           );
         }}
       </Collection>

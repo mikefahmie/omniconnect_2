@@ -19,6 +19,7 @@ export default function CustomerProfile(props) {
       justifyContent="flex-start"
       alignItems="center"
       position="relative"
+      boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
       padding="24px 24px 24px 24px"
       backgroundColor="rgba(243,242,241,1)"
       {...getOverrideProps(overrides, "CustomerProfile")}

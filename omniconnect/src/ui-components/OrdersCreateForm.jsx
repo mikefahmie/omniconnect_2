@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createOrders } from "../graphql/mutations";
@@ -28,7 +34,9 @@ export default function OrdersCreateForm(props) {
     addressZIP: "",
     addressStreet: "",
     addressState: "",
-    orderStatus: "",
+    addrressCity: "",
+    orderStatus: false,
+    orderNumber: "",
   };
   const [orderPlaced, setOrderPlaced] = React.useState(
     initialValues.orderPlaced
@@ -41,8 +49,14 @@ export default function OrdersCreateForm(props) {
   const [addressState, setAddressState] = React.useState(
     initialValues.addressState
   );
+  const [addrressCity, setAddrressCity] = React.useState(
+    initialValues.addrressCity
+  );
   const [orderStatus, setOrderStatus] = React.useState(
     initialValues.orderStatus
+  );
+  const [orderNumber, setOrderNumber] = React.useState(
+    initialValues.orderNumber
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -51,7 +65,9 @@ export default function OrdersCreateForm(props) {
     setAddressZIP(initialValues.addressZIP);
     setAddressStreet(initialValues.addressStreet);
     setAddressState(initialValues.addressState);
+    setAddrressCity(initialValues.addrressCity);
     setOrderStatus(initialValues.orderStatus);
+    setOrderNumber(initialValues.orderNumber);
     setErrors({});
   };
   const validations = {
@@ -60,7 +76,9 @@ export default function OrdersCreateForm(props) {
     addressZIP: [],
     addressStreet: [],
     addressState: [],
+    addrressCity: [],
     orderStatus: [{ type: "Required" }],
+    orderNumber: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -93,7 +111,9 @@ export default function OrdersCreateForm(props) {
           addressZIP,
           addressStreet,
           addressState,
+          addrressCity,
           orderStatus,
+          orderNumber,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -151,7 +171,7 @@ export default function OrdersCreateForm(props) {
         label="Order placed"
         isRequired={false}
         isReadOnly={false}
-        type="time"
+        type="date"
         value={orderPlaced}
         onChange={(e) => {
           let { value } = e.target;
@@ -162,7 +182,9 @@ export default function OrdersCreateForm(props) {
               addressZIP,
               addressStreet,
               addressState,
+              addrressCity,
               orderStatus,
+              orderNumber,
             };
             const result = onChange(modelFields);
             value = result?.orderPlaced ?? value;
@@ -191,7 +213,9 @@ export default function OrdersCreateForm(props) {
               addressZIP,
               addressStreet,
               addressState,
+              addrressCity,
               orderStatus,
+              orderNumber,
             };
             const result = onChange(modelFields);
             value = result?.item ?? value;
@@ -220,7 +244,9 @@ export default function OrdersCreateForm(props) {
               addressZIP: value,
               addressStreet,
               addressState,
+              addrressCity,
               orderStatus,
+              orderNumber,
             };
             const result = onChange(modelFields);
             value = result?.addressZIP ?? value;
@@ -249,7 +275,9 @@ export default function OrdersCreateForm(props) {
               addressZIP,
               addressStreet: value,
               addressState,
+              addrressCity,
               orderStatus,
+              orderNumber,
             };
             const result = onChange(modelFields);
             value = result?.addressStreet ?? value;
@@ -278,7 +306,9 @@ export default function OrdersCreateForm(props) {
               addressZIP,
               addressStreet,
               addressState: value,
+              addrressCity,
               orderStatus,
+              orderNumber,
             };
             const result = onChange(modelFields);
             value = result?.addressState ?? value;
@@ -294,10 +324,10 @@ export default function OrdersCreateForm(props) {
         {...getOverrideProps(overrides, "addressState")}
       ></TextField>
       <TextField
-        label="Order status"
-        isRequired={true}
+        label="Addrress city"
+        isRequired={false}
         isReadOnly={false}
-        value={orderStatus}
+        value={addrressCity}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -307,7 +337,40 @@ export default function OrdersCreateForm(props) {
               addressZIP,
               addressStreet,
               addressState,
+              addrressCity: value,
+              orderStatus,
+              orderNumber,
+            };
+            const result = onChange(modelFields);
+            value = result?.addrressCity ?? value;
+          }
+          if (errors.addrressCity?.hasError) {
+            runValidationTasks("addrressCity", value);
+          }
+          setAddrressCity(value);
+        }}
+        onBlur={() => runValidationTasks("addrressCity", addrressCity)}
+        errorMessage={errors.addrressCity?.errorMessage}
+        hasError={errors.addrressCity?.hasError}
+        {...getOverrideProps(overrides, "addrressCity")}
+      ></TextField>
+      <SwitchField
+        label="Order status"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={orderStatus}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              orderPlaced,
+              item,
+              addressZIP,
+              addressStreet,
+              addressState,
+              addrressCity,
               orderStatus: value,
+              orderNumber,
             };
             const result = onChange(modelFields);
             value = result?.orderStatus ?? value;
@@ -321,6 +384,41 @@ export default function OrdersCreateForm(props) {
         errorMessage={errors.orderStatus?.errorMessage}
         hasError={errors.orderStatus?.hasError}
         {...getOverrideProps(overrides, "orderStatus")}
+      ></SwitchField>
+      <TextField
+        label="Order number"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={orderNumber}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              orderPlaced,
+              item,
+              addressZIP,
+              addressStreet,
+              addressState,
+              addrressCity,
+              orderStatus,
+              orderNumber: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.orderNumber ?? value;
+          }
+          if (errors.orderNumber?.hasError) {
+            runValidationTasks("orderNumber", value);
+          }
+          setOrderNumber(value);
+        }}
+        onBlur={() => runValidationTasks("orderNumber", orderNumber)}
+        errorMessage={errors.orderNumber?.errorMessage}
+        hasError={errors.orderNumber?.hasError}
+        {...getOverrideProps(overrides, "orderNumber")}
       ></TextField>
       <Flex
         justifyContent="space-between"
